@@ -1,0 +1,39 @@
+PONG
+====
+
+class Bat:
+    Inherit from Turtle
+    position, colour, size, shape, pen up
+    player_bat:
+        Moves at constant speed, slightly faster than ball,
+        controlled by player up/down buttons.
+    ai_bat:
+        Moves at constant speed, slightly faster than ball vertical speed,
+        but with random delay when changing direction.
+
+class Ball:
+    Inherit from Turtle
+    position, colour, size, shape, pen up
+    Constant horizontal speed. Reverses direction if it contacts a bat.
+    Constant vertical speed. Reverses direction if it hits a wall.
+
+class Score:
+    Inherit from Turtle
+    position, colour, font type, font size, visibility, pen up
+    player_score:
+        Zero at start of game.
+        Increment if ball passes AI end of screen.
+        Game over when score reaches maximum.
+    ai_score:
+        Zero at start of game.
+        Increment if ball passes player end of screen.
+        Game over when score reaches maximum.
+
+class Net
+    Inherit from Turtle
+    position, colour, visibility, pen width, pen up/down
+	Draw a simple dashed line. (Serves no purpose in the game!)
+
+Screen:
+    Size, colour, play area
+
