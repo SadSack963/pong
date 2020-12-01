@@ -1,9 +1,10 @@
 from turtle import Turtle
-from random import randint, random, choice
+from random import randint, choice
+import CONSTANTS as C
 
 
 class Ball(Turtle):
-    def __init__(self,position):
+    def __init__(self, position):
         super(Ball, self).__init__()
         self.pu()
         self.shape("square")
