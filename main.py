@@ -31,6 +31,16 @@ def draw_net(net):
         net.fd(line_length)
 
 
+def bat_move_up():
+    player_bat.move(C.PLAYER_BAT_SPEED)
+    s.ontimer(bat_move_up, 200)
+
+
+def bat_move_down():
+    player_bat.move(-C.PLAYER_BAT_SPEED)
+    s.ontimer(bat_move_down, 200)
+
+
 # START
 # =====
 
@@ -59,8 +69,8 @@ s.listen()
 # Screen Events
 # The functions player_bat.move_up and player_bat.move_down are not actually called here.
 # They are passed to the event handler mainloop() when the "key" is pressed
-s.onkey(player_bat.move_up, "Up")
-s.onkey(player_bat.move_down, "Down")
+s.onkey(player_bat.move, "Up")
+s.onkey(player_bat.move, "Down")
 
 game_on = True
 while game_on:
@@ -74,6 +84,7 @@ while game_on:
         gameover.GameOver()
     else:
         ball.move()
+        ai_bat.move(randint(C.AI_BAT_SPEED - 3, C.AI_BAT_SPEED + 3))
         sleep(0.2)
 
 # Close the screen once the game has ended and the screen is clicked

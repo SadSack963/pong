@@ -10,7 +10,7 @@ class Ball(Turtle):
         self.shape("square")
         self.color("white")
         self.setposition(position)
-        self.speed(3)
+        self.speed(C.BALL_SPEED)
         self.setheading(choice([-45, 45]) + randint(-10, 10))
 
     def move(self):
