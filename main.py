@@ -31,14 +31,14 @@ def draw_net(net):
         net.fd(line_length)
 
 
-def bat_move_up():
+def player_bat_up():
     player_bat.move(C.PLAYER_BAT_SPEED)
-    s.ontimer(bat_move_up, 200)
+    s.ontimer(player_bat_up, 200)
 
 
-def bat_move_down():
+def player_bat_down():
     player_bat.move(-C.PLAYER_BAT_SPEED)
-    s.ontimer(bat_move_down, 200)
+    s.ontimer(player_bat_down, 200)
 
 
 # START
@@ -69,10 +69,17 @@ s.listen()
 # Screen Events
 # The functions player_bat.move_up and player_bat.move_down are not actually called here.
 # They are passed to the event handler mainloop() when the "key" is pressed
-s.onkey(player_bat.move, "Up")
-s.onkey(player_bat.move, "Down")
+s.onkey(player_bat_up, "Up")
+s.onkey(player_bat_down, "Down")
+
+
+# MAIN GAME LOOP
+# ==============
 
 game_on = True
+ai_direction = 0  # direction of AI bat movement
+new_ai_direction = 0
+ai_speed = 0
 while game_on:
     if player_score.score == 5:
         print("You Win!")
@@ -84,7 +91,18 @@ while game_on:
         gameover.GameOver()
     else:
         ball.move()
-        ai_bat.move(randint(C.AI_BAT_SPEED - 3, C.AI_BAT_SPEED + 3))
+        # If the bat direction has changed, then get a new random AI bat speed
+        if new_ai_direction != ai_direction:
+            ai_direction = new_ai_direction
+            ai_speed = randint(C.AI_BAT_SPEED - 3, C.AI_BAT_SPEED + 3)
+        if ball.ycor() - ai_bat.ycor() > 20:
+            new_ai_direction = 1
+        elif ball.ycor() - ai_bat.ycor() < -20:
+            new_ai_direction = -1
+        else:
+            new_ai_direction = 0
+        ai_bat.move(new_ai_direction * ai_speed)
+
         sleep(0.2)
 
 # Close the screen once the game has ended and the screen is clicked

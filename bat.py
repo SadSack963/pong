@@ -17,10 +17,10 @@ class Bat(Turtle):
 
     def move(self, distance):
         """Up: positive distance, Down: negative distance"""
-        self.fd(5)
+        self.fd(distance)
 
-    def detect_bat(self):
-        # TODO Detect collision with ball ?
+    def detect_ball(self):
+        # TODO Detect collision with ball - probably not required ?
         pass
 
     def detect_wall(self):
