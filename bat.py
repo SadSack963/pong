@@ -14,15 +14,18 @@ class Bat(Turtle):
         self.color("white")
         self.setposition(position)
         self.speed(4)
+        self.stop_moving = False
 
     def move(self, distance):
         """Up: positive distance, Down: negative distance"""
-        self.fd(distance)
-
-    def detect_ball(self):
-        # TODO Detect collision with ball - probably not required ?
-        pass
+        # First move the bat
+        if not self.stop_moving:
+            self.fd(distance)
+        # Then detect (near) collision with top or bottom of screen
+        self.detect_wall()
 
     def detect_wall(self):
-        # TODO Detect collision with wall - Stop moving
-        pass
+        # Detect collision with wall - Stop moving the bat
+        if self.ycor() >= C.HALF_HEIGHT - C.BAT_OFFSET \
+                or self.ycor() <= -C.HALF_HEIGHT + C.BAT_OFFSET :
+            self.stop_moving = True

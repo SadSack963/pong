@@ -15,11 +15,12 @@ LEFT = 180
 RIGHT = 0
 
 # Ball movement
-BALL_SPEED = 10
+BALL_SPEED = 18
 
 # Bat movement
-PLAYER_BAT_SPEED = 12
-AI_BAT_SPEED = 12
+PLAYER_BAT_SPEED = 20
+AI_BAT_SPEED = 15
+BAT_OFFSET = 60  # Bat must stop moving if this close to top or bottom of screen
 
 # Key repeat rate (i.e. when key is held down)
 REPEAT_RATE = 100  # milliseconds

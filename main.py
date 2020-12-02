@@ -31,14 +31,16 @@ def draw_net(net):
         net.fd(line_length)
 
 
+# TODO Find a way to get a held key to repeat.
+#  s.ontimer() doesn't work - it doesn't allow anything else to happen!
 def player_bat_up():
     player_bat.move(C.PLAYER_BAT_SPEED)
-    s.ontimer(player_bat_up, 200)
+    # s.ontimer(player_bat_up, 200)
 
 
 def player_bat_down():
     player_bat.move(-C.PLAYER_BAT_SPEED)
-    s.ontimer(player_bat_down, 200)
+    # s.ontimer(player_bat_down, 200)
 
 
 # START
@@ -57,8 +59,8 @@ player_score = Score((-200, C.HALF_HEIGHT - 100))
 ai_score = Score((200, C.HALF_HEIGHT - 100))
 
 # Create bats
-player_bat = Bat((-C.HALF_WIDTH + 50, randint(-C.HALF_HEIGHT, C.HALF_HEIGHT)))
-ai_bat = Bat((C.HALF_WIDTH - 50, randint(-C.HALF_HEIGHT, C.HALF_HEIGHT)))
+player_bat = Bat((-C.HALF_WIDTH + 40, randint(-C.HALF_HEIGHT, C.HALF_HEIGHT)))
+ai_bat = Bat((C.HALF_WIDTH - 40, randint(-C.HALF_HEIGHT, C.HALF_HEIGHT)))
 
 # Create Ball object
 ball = Ball((-C.HALF_WIDTH, randint(-C.HALF_HEIGHT, C.HALF_HEIGHT)))
@@ -91,19 +93,34 @@ while game_on:
         gameover.GameOver()
     else:
         ball.move()
-        # If the bat direction has changed, then get a new random AI bat speed
-        if new_ai_direction != ai_direction:
-            ai_direction = new_ai_direction
-            ai_speed = randint(C.AI_BAT_SPEED - 3, C.AI_BAT_SPEED + 3)
-        if ball.ycor() - ai_bat.ycor() > 20:
-            new_ai_direction = 1
-        elif ball.ycor() - ai_bat.ycor() < -20:
-            new_ai_direction = -1
+        if ball.detect_edge() == 1:
+            # Player wins
+            player_score.update()
+            # TODO Start a new point, say when player hits spacebar
+        elif ball.detect_edge() == 2:
+            # AI wins
+            ai_score.update()
+            # TODO Start a new point, say when player hits spacebar
         else:
-            new_ai_direction = 0
-        ai_bat.move(new_ai_direction * ai_speed)
+            # If the bat direction has changed, then get a new random AI bat speed
+            if new_ai_direction != ai_direction:
+                ai_direction = new_ai_direction
+                ai_speed = randint(C.AI_BAT_SPEED, C.AI_BAT_SPEED + 8)
+                # if self.ycor() >= C.HALF_HEIGHT - 80 \
+                #         or self.ycor() <= -C.HALF_HEIGHT + 80:
 
-        sleep(0.2)
+            if ball.ycor() - ai_bat.ycor() > 10:
+                new_ai_direction = 1
+                if ai_bat.ycor() <= -C.HALF_HEIGHT + 80:
+                    ai_bat.stop_moving = False
+            elif ball.ycor() - ai_bat.ycor() < -10:
+                new_ai_direction = -1
+                if ai_bat.ycor() >= C.HALF_HEIGHT - 80:
+                    ai_bat.stop_moving = False
+            else:
+                new_ai_direction = 0
+            ai_bat.move(new_ai_direction * ai_speed)
+
 
 # Close the screen once the game has ended and the screen is clicked
 # This binds bye() method to mouse clicks on the Screen.
