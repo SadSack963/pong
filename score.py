@@ -164,6 +164,9 @@ class Score(Turtle):
         self.score += 1
         self.clear()
         # TODO Try drawing block font with turtle?
-        #  Or find and embed appropriate font (how? ASCII Art?),
-        #  or using picture of numbers?
+        #  Or find and embed appropriate font (how?),
+        #  Or ASCII Art (see above),
+        #  Or using picture of numbers:
+        #    e.g. s.addshape(image) (0..9)
+        #         score.shape(image) (x)
         self.write(f"{self.score}", align="center", font=("Arial", 50, "normal"))

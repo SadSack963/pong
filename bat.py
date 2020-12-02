@@ -15,9 +15,14 @@ class Bat(Turtle):
         self.setposition(position)
         self.speed(4)
 
-    def move(self):
+    def move_up(self):
         # TODO Move bat
-        pass
+        self.fd(5)
+        s.ontimer(self.move_up, C.REPEAT_RATE)
+
+    def move_down(self):
+        # TODO Move bat
+        self.bk(20)
 
     def detect_bat(self):
         # TODO Detect collision with ball ?

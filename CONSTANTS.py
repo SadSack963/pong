@@ -14,3 +14,6 @@ UP = 90
 DOWN = -90
 LEFT = 180
 RIGHT = 0
+
+# Key repeat rate (i.e. when key is held down)
+REPEAT_RATE = 100  # milliseconds

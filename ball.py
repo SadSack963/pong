@@ -15,6 +15,8 @@ class Ball(Turtle):
 
     def move(self):
         # TODO Move ball
+        self.fd(20)
+
         pass
 
     def detect_bat(self):
@@ -23,4 +25,8 @@ class Ball(Turtle):
 
     def detect_wall(self):
         # TODO Detect collision with wall
+        pass
+
+    def detect_edge(self):
+        # TODO Detect when ball passes left/right edge of screen
         pass
