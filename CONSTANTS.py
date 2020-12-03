@@ -18,7 +18,7 @@ RIGHT = 0
 BALL_SPEED = 18
 
 # Bat movement
-PLAYER_BAT_SPEED = 20
+PLAYER_BAT_SPEED = 25
 AI_BAT_SPEED = 15
 BAT_OFFSET = 60  # Bat must stop moving if this close to top or bottom of screen
 
