@@ -116,14 +116,8 @@ while game_on:
                 ai_speed = randint(C.AI_BAT_SPEED, C.AI_BAT_SPEED + 8)
             if ball.ycor() - ai_bat.ycor() > 10:
                 new_ai_direction = 1
-                if ai_bat.ycor() <= -C.HALF_HEIGHT + 80:
-                    # ai_bat.stop_moving = False
-                    pass
             elif ball.ycor() - ai_bat.ycor() < -10:
                 new_ai_direction = -1
-                if ai_bat.ycor() >= C.HALF_HEIGHT - 80:
-                    # ai_bat.stop_moving = False
-                    pass
             else:
                 new_ai_direction = 0
             ai_bat.move(new_ai_direction * ai_speed)
