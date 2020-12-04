@@ -16,6 +16,7 @@ RIGHT = 0
 
 # Ball movement
 BALL_SPEED = 22
+INIT_SPEED_MULTIPLIER = 0.15
 
 # Bat movement
 PLAYER_BAT_SPEED = 25

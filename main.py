@@ -1,12 +1,12 @@
 from turtle import Turtle, Screen
-from random import randint, choice
+from random import randint, uniform, choice
+from time import sleep
+
 from score import Score
-from random import randint
 from ball import Ball
 from bat import Bat
 import gameover
 import CONSTANTS as C
-from time import sleep
 
 
 def create_screen(screen):
@@ -97,6 +97,7 @@ while game_on:
         game_on = False
         gameover.GameOver()
     else:
+        sleep(ball.speed_multiplier)
         ball.move()
         ball.detect_bat(player_bat.pos())
         ball.detect_bat(ai_bat.pos())
@@ -114,17 +115,17 @@ while game_on:
             ball.setheading(choice([-45, 45]))  # + randint(-10, 10))
         else:
             # If the bat direction has changed, then get a new random AI bat speed
-            if new_ai_direction != ai_direction:
-                ai_direction = new_ai_direction
-                ai_speed = randint(C.AI_BAT_SPEED-3, C.AI_BAT_SPEED + 5)
             if ball.ycor() - ai_bat.ycor() > 10:
                 new_ai_direction = 1
             elif ball.ycor() - ai_bat.ycor() < -10:
                 new_ai_direction = -1
             else:
                 new_ai_direction = 0
+            if new_ai_direction != ai_direction and new_ai_direction != 0:
+                ai_direction = new_ai_direction
+                ai_speed = int(uniform(C.AI_BAT_SPEED - 3, C.AI_BAT_SPEED + 3)
+                               * C.INIT_SPEED_MULTIPLIER / ball.speed_multiplier)
             ai_bat.move(new_ai_direction * ai_speed)
-    sleep(0.1)
 
 
 # Close the screen once the game has ended and the screen is clicked

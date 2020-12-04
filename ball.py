@@ -12,6 +12,7 @@ class Ball(Turtle):
         self.setposition(0, 0)
         self.speed("slow")
         self.setheading(choice([-45, 45, 135, -135]))  # + randint(-10, 10))
+        self.speed_multiplier = C.INIT_SPEED_MULTIPLIER
 
     def move(self):
         # Move ball a fixed distance
@@ -30,6 +31,7 @@ class Ball(Turtle):
              (self.heading() < 90 or self.heading() > 270))) and \
                 (self.distance(bat_position) < 45):
             self.setheading(180 - self.heading())
+            self.speed_multiplier *= 0.95
 
     def detect_wall(self):
         # Detect collision with wall and reflect the heading
@@ -53,3 +55,4 @@ class Ball(Turtle):
 
     def new_position(self):
         self.setposition(0, randint(int(-C.HALF_HEIGHT * 3 / 4), int(C.HALF_HEIGHT * 3 / 4)))
+        self.speed_multiplier = C.INIT_SPEED_MULTIPLIER
