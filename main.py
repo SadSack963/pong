@@ -6,6 +6,7 @@ from ball import Ball
 from bat import Bat
 import gameover
 import CONSTANTS as C
+from time import sleep
 
 
 def create_screen(screen):
@@ -32,7 +33,7 @@ def draw_net(net):
 
 
 # TODO Find a way to get a held key to repeat.
-#  s.ontimer() doesn't work - it doesn't allow anything else to happen!
+#  s.ontimer() doesn't work - it doesn't allow anything else to happen because it's recursive!
 def player_bat_up():
     if not player_bat.stop_up:
         player_bat.move(C.PLAYER_BAT_SPEED)
@@ -51,6 +52,7 @@ def player_bat_down():
 # Screen object
 s = Screen()
 create_screen(s)
+s.tracer(0)  # Turn off animation
 
 # Net object
 n = Turtle()
@@ -85,6 +87,7 @@ ai_direction = 0  # direction of AI bat movement
 new_ai_direction = 0
 ai_speed = 0
 while game_on:
+    s.update()  # Update the screen
     if player_score.score == 5:
         print("You Win!")
         game_on = False
@@ -121,6 +124,7 @@ while game_on:
             else:
                 new_ai_direction = 0
             ai_bat.move(new_ai_direction * ai_speed)
+    sleep(0.1)
 
 
 # Close the screen once the game has ended and the screen is clicked

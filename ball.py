@@ -19,19 +19,25 @@ class Ball(Turtle):
         self.detect_wall()
 
     def detect_bat(self, bat_position):
-        # TODO Detect collision with bat
-        if self.distance(bat_position) < 30:
+        # Detect collision with bat
+        # If the ball x coordinate is just in front of the bat
+        #   and the ball is within 55 of the bat position
+        #   then there is a collision.
+        # Make the ball bounce.
+        if (self.xcor() <= -C.HALF_WIDTH + 60 or
+            self.xcor() >= C.HALF_WIDTH - 60) and \
+                self.distance(bat_position) < 55:
             self.setheading(180 - self.heading())
 
     def detect_wall(self):
         # Detect collision with wall and reflect the heading
-        if self.ycor() >= C.HALF_HEIGHT\
-                or self.ycor() <= -C.HALF_HEIGHT:
+        if self.ycor() >= C.HALF_HEIGHT - 20\
+                or self.ycor() <= -C.HALF_HEIGHT + 20:
             self.setheading(-self.heading())
-        # TEMPORARY - Confine ball to screen
-        if self.xcor() >= C.HALF_WIDTH\
-                or self.xcor() <= -C.HALF_WIDTH:
-            self.setheading(180-self.heading())
+        # # TEMPORARY - Confine ball to screen
+        # if self.xcor() >= C.HALF_WIDTH\
+        #         or self.xcor() <= -C.HALF_WIDTH:
+        #     self.setheading(180-self.heading())
 
     def detect_edge(self):
         # Detect when ball passes left/right edge of screen
