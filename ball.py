@@ -11,7 +11,7 @@ class Ball(Turtle):
         self.color("white")
         self.setposition(0, 0)
         self.speed("slow")
-        self.setheading(choice([-45, 45, 135, -135]) + randint(-10, 10))
+        self.setheading(choice([-45, 45, 135, -135]))  # + randint(-10, 10))
 
     def move(self):
         # Move ball a fixed distance
@@ -24,9 +24,11 @@ class Ball(Turtle):
         #   and the ball is within 55 of the bat position
         #   then there is a collision.
         # Make the ball bounce.
-        if (self.xcor() <= -C.HALF_WIDTH + 60 or
-            self.xcor() >= C.HALF_WIDTH - 60) and \
-                self.distance(bat_position) < 55:
+        if (((self.xcor() <= -C.HALF_WIDTH + 70) and
+             (90 < self.heading() < 270)) or
+            ((self.xcor() >= C.HALF_WIDTH - 70) and
+             (self.heading() < 90 or self.heading() > 270))) and \
+                (self.distance(bat_position) < 45):
             self.setheading(180 - self.heading())
 
     def detect_wall(self):
@@ -34,10 +36,6 @@ class Ball(Turtle):
         if self.ycor() >= C.HALF_HEIGHT - 20\
                 or self.ycor() <= -C.HALF_HEIGHT + 20:
             self.setheading(-self.heading())
-        # # TEMPORARY - Confine ball to screen
-        # if self.xcor() >= C.HALF_WIDTH\
-        #         or self.xcor() <= -C.HALF_WIDTH:
-        #     self.setheading(180-self.heading())
 
     def detect_edge(self):
         # Detect when ball passes left/right edge of screen
@@ -52,3 +50,6 @@ class Ball(Turtle):
             return 2
         else:
             return 0
+
+    def new_position(self):
+        self.setposition(0, randint(int(-C.HALF_HEIGHT * 3 / 4), int(C.HALF_HEIGHT * 3 / 4)))

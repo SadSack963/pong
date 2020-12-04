@@ -15,7 +15,7 @@ LEFT = 180
 RIGHT = 0
 
 # Ball movement
-BALL_SPEED = 18
+BALL_SPEED = 22
 
 # Bat movement
 PLAYER_BAT_SPEED = 25

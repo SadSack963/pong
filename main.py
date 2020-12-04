@@ -104,19 +104,19 @@ while game_on:
             # Player wins
             player_score.update()
             # Reposition ball with new heading
-            ball.setposition(0, 0)
-            ball.setheading(choice([-45, 45, 135, -135]) + randint(-10, 10))
+            ball.new_position()
+            ball.setheading(choice([135, -135]))  # + randint(-10, 10))
         elif ball.detect_edge() == 2:
             # AI wins
             ai_score.update()
             # Reposition ball with new heading
-            ball.setposition(0, 0)
-            ball.setheading(choice([-45, 45, 135, -135]) + randint(-10, 10))
+            ball.new_position()
+            ball.setheading(choice([-45, 45]))  # + randint(-10, 10))
         else:
             # If the bat direction has changed, then get a new random AI bat speed
             if new_ai_direction != ai_direction:
                 ai_direction = new_ai_direction
-                ai_speed = randint(C.AI_BAT_SPEED, C.AI_BAT_SPEED + 8)
+                ai_speed = randint(C.AI_BAT_SPEED-3, C.AI_BAT_SPEED + 5)
             if ball.ycor() - ai_bat.ycor() > 10:
                 new_ai_direction = 1
             elif ball.ycor() - ai_bat.ycor() < -10:
